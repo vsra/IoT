@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto final</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Proyecto final - Sistemas embebidos e IoT</h1>
+    </header>
+    
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-link active" onclick="openForm(event, 'form1')">WiFi</button>
+            <button class="tab-link" onclick="openForm(event, 'form2')">MQTT</button>
+            <button class="tab-link" onclick="openForm(event, 'form3')">Control de sonido</button>
+        </div>
+        
+        <div id="form1" class="form-section active">
+            <h2>Conectar a una red WiFi</h2>
+            <form id="wifiForm" class="form">
+                <div class="form-group">
+                    <label for="name1">Nombre de la red:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email1">Contraseña: </label>
+                    <input type="text" id="password" name="password" required>
+                </div>
+                <button type="submit">Conectar</button>
+            </form>
+        </div>
+        
+        <div id="form2" class="form-section">
+            <h2>Conectar a MQTT</h2>
+            <form id="form2-form" class="form">
+                <div class="form-group">
+                    <label for="name2">Nombre</label>
+                    <input type="text" id="name2" name="name2" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Teléfono</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+        
+        <div id="form3" class="form-section">
+            <h2>Control de sonido:</h2>
+            <form id="controlSonido" class="form">
+                <div class="container">
+                    <div class="botones">
+                        <button type="button" id="play" onclick="accionReproductor('play')">Play</button>
+                        <button type="button" id="pausa" onclick="accionReproductor('pausa')">Pausa</button>
+                        <button type="button" id="siguiente" onclick="accionReproductor('siguiente')">Siguiente</button>
+                        <button type="button" id="anterior" onclick="accionReproductor('anterior')">Anterior</button>
+                        <button type="button"id="play" onclick="accionReproductor('subir')">Subir Volumen</button>
+                        <button type="button"onclick="accionReproductor('bajar')">Bajar Volumen</button>
+                        <button type="button" onclick="accionReproductor('detener')">Detener</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openForm(evt, formName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("form-section");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-link");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(formName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
