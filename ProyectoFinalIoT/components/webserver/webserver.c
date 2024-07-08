@@ -21,9 +21,9 @@
 #include "APSTAmodule.h"
 
 /* A simple example that demonstrates using websocket echo server */
-static const char *TAG = "ws_echo_server";
+#define TAG "ws_echo_server";
 
-#define BUF_SIZE (1024)
+#define BUF_SIZE (1024);
 
 /*
  * Structure holding server handle
@@ -35,7 +35,7 @@ struct async_resp_arg {
     int fd;
 };
 
-char *comandoRecibido;
+char *comandoRecibido;//Para mandar a la queue tenes que crearlo con malloc o se panickea al intentar usarlo
 
 
 
@@ -119,29 +119,29 @@ return ESP_OK;
 }
 
 #define QUEUE_LENGTH 30
- char received_value;
-void imprimirCola(void *cola) {
 
-   
-    /* 
-    while (1) {
-        // Esperar hasta recibir un valor en la cola
-        if (xQueueReceive(command_queue, &received_value, portMAX_DELAY) == pdPASS) {
-            // Imprimir el valor recibido
-            printf("Valor recibido de la cola: %d\n", received_value);
-        }
-    }
-    */
-  
+char received_value[25];//Sttring para ver lo de la cola
+
+//Imprime el siguiente elemento en la cola, NO SE ELIMINA EL ELEMENTO DE LA QUEUE!!!!!
+void imprimirCola(QueueHandle_t  cola) {
+
+    // Esperar hasta recibir un valor en la cola
+    if (xQueuePeek(cola, &received_value, portMAX_DELAY)) {
+        // Imprimir el valor recibido
+        ESP_LOGI(TAG, "Siguiente en QUEUE: %s",received_value);
+    }else{
+        
+    };
+
+    /*
     for (int i = 0; i <= QUEUE_LENGTH; ++i) {
        // ESP_LOGI(TAG, "Los datos recibidos son: %s",  &cola[i]);
 
         printf("Imprimiendo desde la queue: %s ", (char*) &cola[i]);
         printf("\n");
     }
-    
-   
-    
+    */
+   return
 }
 
 esp_err_t command_sent_handler(httpd_req_t *req) {
@@ -165,12 +165,18 @@ esp_err_t command_sent_handler(httpd_req_t *req) {
 
     ESP_LOGI(TAG, "El comando es: %s", comandoRecibido);
 
-    xQueueSend(command_queue, &comandoRecibido, (TickType_t) 0);
+    //MALLOC para enviar a la queue
+    void* comandoRecibidoQUEUE = malloc(sizeof(comandoRecibido));
+    strcpy(comandoRecibidoQUEUE , comandoRecibido);
+    
+    if (xQueueSend(command_queue, comandoRecibidoQUEUE, pdMS_TO_TICKS(100) )){
+        ESP_LOGI(TAG, "Enviado a QUEUE");
+    }else{
+        ESP_LOGI(TAG, "No se pudo enviar a QUEUE");//Solo si la QUEUE llena o NULL
+    };
 
-   imprimirCola(&command_queue);
+   imprimirCola(command_queue);//para debuggear, ok
   
-
-
 
 return ESP_OK;
 }
