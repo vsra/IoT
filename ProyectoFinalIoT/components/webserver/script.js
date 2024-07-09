@@ -52,33 +52,31 @@ async function accionReproductor(accion) {
         };
 
         switch (accion) {
-            case 'play':
+            case 'PLAY':
                 console.log('Reproduciendo sonido...');
                 //acciones.accionSeleccionada = accion;
 
                 break;
-            case 'pausa':
+            case 'PAUSE':
                 console.log('Pausando sonido...');
-                accionSeleccionada = "pausa";
-
                 break;
-            case 'siguiente':
+            case 'NEXT':
                 console.log('Cambiando al siguiente sonido...');
                 // Aquí podrías poner la lógica para ir al siguiente sonido
                 break;
-            case 'anterior':
+            case 'PREVIOUS':
                 console.log('Cambiando al sonido anterior...');
                 // Aquí podrías poner la lógica para ir al sonido anterior
                 break;
-            case 'subir':
+            case 'VOLUMEN_UP':
                 console.log('Subiendo volumen...');
                 // Aquí podrías poner la lógica para subir el volumen
                 break;
-            case 'bajar':
+            case 'VOLUMEN_DOWN':
                 console.log('Bajando volumen...');
                 // Aquí podrías poner la lógica para bajar el volumen
                 break;
-            case 'detener':
+            case 'STOP':
                 console.log('Deteniendo sonido...');
                 // Aquí podrías poner la lógica para detener el sonido
                 break;

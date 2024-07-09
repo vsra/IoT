@@ -25,9 +25,9 @@
 QueueHandle_t command_queue;
 
 
-/*
-typedef struct eventos {
-    EVENT_PLAY,
+
+typedef enum eventos {
+    EVENT_PLAY = 0,
     EVENT_PAUSE,
     EVENT_NEXT,
     EVENT_PREVIOUS,
@@ -35,38 +35,6 @@ typedef struct eventos {
     EVENT_VOLUMEN_UP,
     EVENT_VOLUMEN_DOWN
 } event_t;
-
-*/
-
-
-/*
-
-// Función que envía a la queue
-void envio_queue(event_t event_received){
-    BaseType_t xStatus;
-
-    // Intentar enviar a la cola
-    xStatus = xQueueSendToBack(command_queue, &event_received, (TickType_t) 0);
-    if (xStatus != pdPASS) {
-        ESP_LOGE(TAG, "No se pudo enviar el evento a la cola");
-        return;
-    }
-    ESP_LOGI(TAG, "Evento enviado a la cola");
-
-    // Recibir de la cola
-    event_t *event_saved_queue;
-    event_saved_queue = (event_t*) malloc(sizeof(event_t));
-    xStatus = xQueueReceive(command_queue, &event_saved_queue, pdMS_TO_TICKS(500));
-    if (xStatus == pdPASS) {
-        ESP_LOGI(TAG, "Evento recibido de la cola");
-    } else {
-        ESP_LOGE(TAG, "No se pudo recibir el evento de la cola");
-    }
-}
-
-*/
-
-
 
 
 
@@ -78,9 +46,11 @@ void app_main(void) {
     }
     ESP_ERROR_CHECK(ret);
 
-    command_queue = xQueueCreate(QUEUE_LENGTH, sizeof(char));
+    command_queue = xQueueCreate(QUEUE_LENGTH, sizeof(uint64_t));
 
     wifi_init(&command_queue);
+
+
 
 
 

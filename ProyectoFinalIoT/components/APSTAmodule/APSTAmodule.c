@@ -19,8 +19,8 @@
 #define AP_SSID "IoTAccessPoint"
 #define AP_PASS "123456789"
 
-#define STA_SSID "Mariana"
-#define STA_PASS "abril2023"
+#define STA_SSID "Sofia2000"
+#define STA_PASS "sofia1998"
 
 #define MAX_STA_CONN 4
 
@@ -45,10 +45,10 @@ static void wifi_event_handler(void* arg, esp_event_base_t event_base, int32_t e
         ESP_LOGI(TAG, "Station disconnected, AID=%d", event->aid);
     }
 }
-QueueHandle_t command_queue;
+QueueHandle_t command_queue_apsta;
 
 void wifi_init(void *queue) {
-    command_queue = queue;
+    command_queue_apsta = queue;
     esp_netif_init();
     esp_event_loop_create_default();
     esp_netif_create_default_wifi_ap();

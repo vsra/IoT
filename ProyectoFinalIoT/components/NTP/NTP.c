@@ -99,9 +99,6 @@ void obtain_time(void)
     }
 }
 
-
-
-
 void initNTP() {       
     // Wait for the WiFi to connect
     vTaskDelay(1000 / portTICK_PERIOD_MS);
