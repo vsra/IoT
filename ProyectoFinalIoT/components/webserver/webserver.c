@@ -120,17 +120,17 @@ return ESP_OK;
 
 #define QUEUE_LENGTH 30
 
-char received_value[25];//Sttring para ver lo de la cola
+char* received_value;//Sttring para ver lo de la cola
 
 //Imprime el siguiente elemento en la cola, NO SE ELIMINA EL ELEMENTO DE LA QUEUE!!!!!
 void imprimirCola(QueueHandle_t  cola) {
 
     // Esperar hasta recibir un valor en la cola
-    if (xQueuePeek(cola, &received_value, portMAX_DELAY)) {
+    if (xQueuePeek(cola, received_value, portMAX_DELAY)) {
         // Imprimir el valor recibido
-        ESP_LOGI(TAG, "Siguiente en QUEUE: %s",received_value);
+        ESP_LOGI(TAG, "Siguiente en QUEUE: %s",*received_value_ptr);
     }else{
-        
+        ESP_LOGI(TAG, "Queue vacía");
     };
 
     /*
@@ -167,7 +167,7 @@ esp_err_t command_sent_handler(httpd_req_t *req) {
 
     //MALLOC para enviar a la queue
     void* comandoRecibidoQUEUE = malloc(sizeof(comandoRecibido));
-    strcpy(comandoRecibidoQUEUE , comandoRecibido);
+    strcpy(*comandoRecibidoQUEUE , comandoRecibido);
     
     if (xQueueSend(command_queue, comandoRecibidoQUEUE, pdMS_TO_TICKS(100) )){
         ESP_LOGI(TAG, "Enviado a QUEUE");
