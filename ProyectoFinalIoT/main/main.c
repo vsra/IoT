@@ -10,8 +10,29 @@
 #include "APSTAmodule.h"
 
 #define TAG "main"
+<<<<<<< Updated upstream
 void app_main(void)
 {
+=======
+
+#define QUEUE_LENGTH 30
+//QueueHandle_t command_queue;
+
+
+
+typedef enum {
+    EVENT_PLAY = 0,
+    EVENT_PAUSE,
+    EVENT_NEXT,
+    EVENT_PREVIOUS,
+    EVENT_STOP,
+    EVENT_VOLUMEN_UP,
+    EVENT_VOLUMEN_DOWN
+} event_t;
+
+
+void app_main(void) {
+>>>>>>> Stashed changes
     esp_err_t ret = nvs_flash_init();
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND)
     {
@@ -21,8 +42,22 @@ void app_main(void)
 
     ESP_ERROR_CHECK(ret);
 
+<<<<<<< Updated upstream
     ESP_LOGI(TAG, "Hello world!");
     init_network();
     //init_logger();
    // init_player();
+=======
+  //  command_queue = xQueueCreate(QUEUE_LENGTH, sizeof(event_t));
+
+    wifi_init();
+
+
+
+
+
+   // inicializacionAudio();
+
+
+>>>>>>> Stashed changes
 }

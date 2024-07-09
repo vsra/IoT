@@ -57,6 +57,7 @@ static void sta_event_handler(void *arg, esp_event_base_t event_base, int32_t ev
         xEventGroupSetBits(wifi_event_group, WIFI_CONNECTED_BIT);
     }
 }
+<<<<<<< Updated upstream
 
 static void wifi_event_handler(void *arg, esp_event_base_t event_base, int32_t event_id, void *event_data)
 {
@@ -74,6 +75,14 @@ static void wifi_event_handler(void *arg, esp_event_base_t event_base, int32_t e
 
 void wifi_init_softap(void)
 {
+=======
+//QueueHandle_t command_queue_apsta;
+
+void wifi_init() {
+   // command_queue_apsta = queue;
+    esp_netif_init();
+    esp_event_loop_create_default();
+>>>>>>> Stashed changes
     esp_netif_create_default_wifi_ap();
 
     wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
