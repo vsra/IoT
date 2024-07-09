@@ -78,9 +78,9 @@ void app_main(void) {
     }
     ESP_ERROR_CHECK(ret);
 
-    command_queue = xQueueCreate(QUEUE_LENGTH, sizeof(char));
+    command_queue = xQueueCreate(QUEUE_LENGTH, sizeof(char*));
 
-    wifi_init(&command_queue);
+    wifi_init(command_queue);
 
 
 
