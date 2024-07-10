@@ -1,4 +1,4 @@
-void startWebserver(void);
+void init_webserver(void);
 
-    const char *username ;
-    const char *password ;
+extern char *usernameIngresado;
+extern char *passwordIngresado;
